@@ -5,21 +5,21 @@ This is far from complete. It's just some notes and partially implemented applic
 # Install
 
 1. Install [Ollama](https://ollama.ai/download).
-2. Clone this repo: https://github.com/docker/genai-stack
-3. Follow their instructions:
-   1. `docker compose up`
-   2. `docker compose up --build`
-   3. `docker compose watch`
-   4. `docker compose down`
-4. Find out that half of it is broken.
+2. ~~Clone this repo: https://github.com/docker/genai-stack~~
+3. ~~Follow their instructions:~~
+   1. ~~`docker compose up`~~
+   2. ~~`docker compose up --build`~~
+   3. ~~`docker compose watch`~~
+   4. ~~`docker compose down`~~
+4. ~~Find out that half of it is broken.~~
 
 -----
 
-1. start Ollama
+1. Start Ollama
 2. Setup Python app for embeddings (FastAPI, uvicorn ...)
-2. set env: `source .env`
-3. download latest data dump: https://github.com/neo4j-graph-examples/recommendations/tree/main/data and put file named `neo4j.dump` in /backups dir of neo4j. The file name maps to the database name (only neo4j database in community edition).
-3. load data
+2. Set env: `source .env`
+3. Download latest data dump: https://github.com/neo4j-graph-examples/recommendations/tree/main/data and put file named `neo4j.dump` in /backups dir of neo4j. The file name maps to the database name (only neo4j database in community edition).
+3. Load data
 ```
 docker run --interactive --tty --rm \
     --volume=$HOME/code/explore/knowledge-graph-rag/neo4j/data:/data \
@@ -27,7 +27,7 @@ docker run --interactive --tty --rm \
     neo4j/neo4j-admin:5.16.0 \
 neo4j-admin database load neo4j --from-path=/backups
 ```
-4. start neo4j:
+4. Start neo4j:
 ```
 docker run \
     --user="$(id -u)":"$(id -g)" \
@@ -41,7 +41,7 @@ docker run \
      --env NEO4J_PLUGINS='["apoc"]' \
     neo4j:5.16.0
 ```
-5. create index (move to code later)
+5. Create index (move to code later)
 ```
 CALL db.index.vector.createNodeIndex(
     'moviePlots',
@@ -56,7 +56,7 @@ CALL db.index.vector.createNodeIndex(
    2. run Go app with `-embeddings` flag to fetch movies for neo4j, ask for embeddings, insert embeddings into neo4j
 7. Call Go app with `-prompt` flag followed by key words or description of a movie you want to watch.
 
-# TODO:
+## TODO:
 
 - Think of prompt that uses the relationships in the graph as useful information (instead of only relying on similarity search).
 - Create app to ask a question with the knowledge graph as augmentation data source.
