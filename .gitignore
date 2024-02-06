@@ -7,3 +7,4 @@ neo4j/logs
 __pycache__
 logs
 venv
+.DS_Store
